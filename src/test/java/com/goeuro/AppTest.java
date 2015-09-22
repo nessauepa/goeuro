@@ -1,38 +1,34 @@
 package com.goeuro;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.testng.Assert.assertEquals;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+public class AppTest {
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+	@DataProvider(name = "failedInputs")
+	public Object[][] provide() throws Exception {
+		return new Object[][] {
+				{ null },
+				{ new String[] {} },
+				{ new String[] { null } },
+				{ new String[] { "" } },
+				{ new String[] { "Param1", "Param2" } }
+		};
+	}
+
+	@Test(dataProvider = "failedInputs")
+	public void shouldReturnUsageMessage(String[] args) {
+
+		String response = new App().execute(args);
+		assertEquals(response, "Usage: java -jar GoEuroTest.java <city>");
+	}
+	
+	@Test
+	public void shouldReturnSuccess() {
+		
+		String response = new App().execute(new String[]{ "Berlin" });
+		assertEquals(response, "File generated: Berlin.csv");
+	}
 }

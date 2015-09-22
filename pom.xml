@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.goeuro</groupId>
-	<artifactId>test</artifactId>
+	<artifactId>goeuro-test</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>test</name>
+	<name>goeuro-test</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -15,12 +15,20 @@
 	</properties>
 
 	<dependencies>
+
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.1.1</version>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -68,7 +76,8 @@
 						<configuration>
 							<transformers>
 								<!-- Add Main-Class to manifest file -->
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>com.goeuro.App</mainClass>
 								</transformer>
 							</transformers>
